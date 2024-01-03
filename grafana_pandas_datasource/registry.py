@@ -5,7 +5,7 @@ Copyright 2020-2022 Andreas Motl <andreas.motl@panodata.org>
 License: GNU Affero General Public License, Version 3
 """
 from dataclasses import dataclass, field
-from typing import Callable, Dict
+from typing import Callable, Dict, List
 
 
 @dataclass
@@ -19,6 +19,8 @@ class DataGenerators:
     metric_finders: Dict[str, Callable] = field(default_factory=dict)
     annotation_readers: Dict[str, Callable] = field(default_factory=dict)
     panel_readers: Dict[str, Callable] = field(default_factory=dict)
+    metrics: List = field(default_factory=list)
+    split_metrics: Dict[str, Dict] = field(default_factory=dict)
 
     def add_metric_reader(self, name, reader):
         self.metric_readers[name] = reader
@@ -31,6 +33,14 @@ class DataGenerators:
 
     def add_panel_reader(self, name, reader):
         self.panel_readers[name] = reader
+
+    def add_metrics(self, metrics):
+        self.metrics = metrics
+        print(self.metrics)
+
+    def add_split_metrics(self, metrics):
+        self.split_metrics = metrics
+        print(self.split_metrics)
 
 
 """
